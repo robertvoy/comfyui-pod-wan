@@ -1,0 +1,86 @@
+# --- Python ---
+# Bytecode and Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environments (good practice even if not used in this specific setup)
+.env
+.venv
+env/
+venv/
+ENV/
+venv.bak/
+env.bak/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+wheels/
+*.egg
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.coverage.*
+.cache
+htmlcov/
+.pytest_cache/
+
+# --- IDE / Editor ---
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# PyCharm / IntelliJ
+.idea/
+
+# Sublime Text
+*.sublime-*
+
+# --- OS Files ---
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- Logs and Temporary Files ---
+*.log
+*.log.*
+*.tmp
+*~
+*.swp
+*.bak
+
+# --- Large Data / Model Files ---
+# IMPORTANT: Models should NOT be committed to Git.
+# These lines help prevent accidental commits if models end up in the repo dir.
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.bin
+*.onnx
+*.engine
+
+# If you were downloading models locally into a specific directory:
+# /models/
+# /workspace/ # Be careful not to ignore essential tracked files if using this name
+
+# --- Other ---
+# Any other local config or secrets files you might create
+# local_config.yaml
+# secrets.txt
