@@ -1,5 +1,5 @@
 # Stage 1: Base image with common dependencies
-FROM nvidia/cuda:12.8.1-cudnn-runtime-ubuntu22.04 as base
+FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu22.04 as base
 
 # Prevents prompts from packages asking for user input during installation
 ENV DEBIAN_FRONTEND=noninteractive
@@ -10,12 +10,13 @@ ENV PYTHONUNBUFFERED=1
 # Speed up some cmake builds
 ENV CMAKE_BUILD_PARALLEL_LEVEL=8
 
-# Install necessary tools including software-properties-common for PPA management
+# Install necessary tools including build tools, python dev headers, software-properties-common
 # Add deadsnakes PPA for newer Python versions
 # Install Python 3.12, venv, git etc. Use ensurepip for pip installation.
 # Combine update, install, PPA add, second update, and cleanup into one RUN layer
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
+    python3.12-dev \
     software-properties-common \
     && add-apt-repository ppa:deadsnakes/ppa \
     && apt-get update && apt-get install -y --no-install-recommends \
@@ -30,7 +31,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     # Use Python 3.12's ensurepip to install/bootstrap pip and setuptools
     && python -m ensurepip --upgrade \
     # Cleanup PPA tooling and apt caches
-    # Note: build-essential might leave some build deps; autoremove helps
     && apt-get purge -y software-properties-common \
     && apt-get autoremove -y \
     && apt-get clean -y \
