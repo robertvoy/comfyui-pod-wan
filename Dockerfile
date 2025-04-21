@@ -81,6 +81,9 @@ RUN sh -c 'for dir in */ ; do \
         fi \
     done'
 
+# Install sageattention
+RUN python -m pip install --no-cache-dir sageattention
+
 # Go back to the main ComfyUI directory
 WORKDIR /comfyui
 # ---- End Custom Nodes ----
