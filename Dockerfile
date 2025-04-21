@@ -15,6 +15,7 @@ ENV CMAKE_BUILD_PARALLEL_LEVEL=8
 # Install Python 3.12, venv, git etc. Use ensurepip for pip installation.
 # Combine update, install, PPA add, second update, and cleanup into one RUN layer
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
     software-properties-common \
     && add-apt-repository ppa:deadsnakes/ppa \
     && apt-get update && apt-get install -y --no-install-recommends \
@@ -29,6 +30,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     # Use Python 3.12's ensurepip to install/bootstrap pip and setuptools
     && python -m ensurepip --upgrade \
     # Cleanup PPA tooling and apt caches
+    # Note: build-essential might leave some build deps; autoremove helps
     && apt-get purge -y software-properties-common \
     && apt-get autoremove -y \
     && apt-get clean -y \
