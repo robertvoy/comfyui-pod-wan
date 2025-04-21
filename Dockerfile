@@ -10,17 +10,20 @@ ENV PYTHONUNBUFFERED=1
 # Speed up some cmake builds
 ENV CMAKE_BUILD_PARALLEL_LEVEL=8
 
-# Install necessary tools including build tools, python dev headers, software-properties-common
+# Install base build tools & PPA management first
 # Add deadsnakes PPA for newer Python versions
-# Install Python 3.12, venv, git etc. Use ensurepip for pip installation.
+# Install Python 3.12, Python Dev headers, venv, git etc. AFTER adding PPA. Use ensurepip for pip installation.
 # Combine update, install, PPA add, second update, and cleanup into one RUN layer
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    python3.12-dev \
     software-properties-common \
+    # Install build tools and PPA management first
     && add-apt-repository ppa:deadsnakes/ppa \
+    # Add the PPA
     && apt-get update && apt-get install -y --no-install-recommends \
+    # Update package list AGAIN after adding PPA, then install PPA packages + others
     python3.12 \
+    python3.12-dev \
     python3.12-venv \
     git \
     wget \
